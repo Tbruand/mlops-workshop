@@ -27,4 +27,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: model-score
-          path: models/score.txt
+          path: models/metrics/score.txt
