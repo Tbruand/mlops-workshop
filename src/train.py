@@ -3,9 +3,9 @@ from sklearn.metrics import accuracy_score
 from joblib import dump
 from preprocess import preprocess
 
-X_train, X_test, y_train, y_test = preprocess("data/iris.csv")
+X_train, X_test, y_train, y_test = preprocess("data/titanic.csv")
 
-model = RandomForestClassifier()
+model = RandomForestClassifier(n_estimators=5)
 model.fit(X_train, y_train)
 
 preds = model.predict(X_test)
