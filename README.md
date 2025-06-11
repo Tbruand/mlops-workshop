@@ -1,10 +1,10 @@
-# 🧪 MLOps Workshop
+# 🔪 MLOps Workshop
 
 Ce projet est un exemple pédagogique de pipeline MLOps minimal, intégrant :
 
 * Le prétraitement des données,
 * L'entraînement d'un modèle de machine learning,
-* La sauvegarde des résultats (score + modèle),
+* La sauvegarde des résultats (score + modèle + visualisations),
 * Un workflow CI avec GitHub Actions.
 
 ---
@@ -13,8 +13,10 @@ Ce projet est un exemple pédagogique de pipeline MLOps minimal, intégrant :
 
 ```
 mlops-workshop/
-├── data/                 # Contient le jeu de données (ex: iris.csv)
-├── models/               # Contient le modèle entraîné et les métriques
+├── data/                 # Contient le jeu de données (ex: titanic.csv)
+├── models/               # Contient le modèle entraîné
+│   └── metrics/          # Contient les métriques (score.txt, courbes ROC/confusion)
+├── notebooks/            # Analyses exploratoires (EDA)
 ├── src/                  # Code source (prétraitement + entraînement)
 │   ├── preprocess.py
 │   └── train.py
@@ -48,11 +50,15 @@ python src/train.py
 
 Cela :
 
-* Lit `data/iris.csv`
-* Prétraite les données (`train_test_split`)
+* Lit `data/titanic.csv`
+* Prétraite les données (`train_test_split`, `StandardScaler`, encodage...)
 * Entraîne un `RandomForestClassifier`
-* Sauvegarde le score dans `models/score.txt`
 * Sauvegarde le modèle dans `models/model.joblib`
+* Sauvegarde les métriques dans `models/metrics/score.txt`
+* Génère deux visualisations :
+
+  * `confusion_matrix.png`
+  * `roc_curve.png`
 
 ---
 
@@ -62,7 +68,7 @@ Un workflow GitHub Actions est défini dans `.github/workflows/ci.yml` pour :
 
 * Installer les dépendances
 * Lancer l'entraînement
-* Uploader les résultats d'accuracy en tant qu’artifact
+* Uploader le fichier `models/metrics/score.txt` en tant qu’artifact
 
 ---
 
@@ -71,6 +77,8 @@ Un workflow GitHub Actions est défini dans `.github/workflows/ci.yml` pour :
 * `pandas`
 * `scikit-learn`
 * `joblib`
+* `matplotlib`
+* `seaborn`
 
 ---
 
